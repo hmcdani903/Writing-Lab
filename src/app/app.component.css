@@ -1,0 +1,11 @@
+header img {
+    width: 200px;
+}
+header {
+    background-color: black;
+}
+header span{
+    color: blanchedalmond;
+    font-size: 36px;
+    padding: 20px;
+}
