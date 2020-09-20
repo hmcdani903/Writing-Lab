@@ -1,0 +1,17 @@
+nav{
+    background-color: rgb(31, 30, 30);
+    padding: 25px;
+    
+
+}
+a{
+    text-decoration: none;
+    color: lightblue;
+    font-size: 24px;
+    padding: 15px;
+    border-bottom: lightblue solid 3px;
+    margin: 0px 5px;
+}
+a:hover{
+    border: lightblue solid 3px;
+}
