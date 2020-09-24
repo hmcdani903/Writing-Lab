@@ -1,0 +1,22 @@
+.container {
+    background-color: black;
+    color: white;
+    min-height: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    justify-items: center;
+}
+
+.img-container {
+    width: 100%;
+    text-align: center;
+}
+
+img {
+    width: 125px;
+}
+
+.aside {
+    padding: 0px 30px;
+}

@@ -1,17 +1,16 @@
 nav{
     background-color: rgb(31, 30, 30);
-    padding: 25px;
-    
-
+    padding: 20px;
 }
 a{
     text-decoration: none;
     color: lightblue;
-    font-size: 24px;
+    font-size: 16px;
     padding: 15px;
-    border-bottom: lightblue solid 3px;
     margin: 0px 5px;
+    transition: ease-in-out 1.5s;
 }
 a:hover{
-    border: lightblue solid 3px;
+    border-bottom: lightblue solid 3px;
+    transition: ease-in-out 1.5s;
 }
