@@ -1,0 +1,6 @@
+<p>schedule works!</p>
+<ul>
+    <li *ngFor="let student of students | async">
+        <pre>{{ student | json }}</pre>
+    </li>
+</ul>

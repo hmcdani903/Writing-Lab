@@ -9,6 +9,16 @@ import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { FooterComponent } from './footer/footer.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { MattComponent } from './matt/matt.component';
+import { CassieComponent } from './cassie/cassie.component';
+import { KaitlynComponent } from './kaitlyn/kaitlyn.component';
+import { RahimaComponent } from './rahima/rahima.component';
+
+// firebase imports 
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -17,12 +27,20 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     NavbarComponent,
     WelcomeComponent,
-    FooterComponent
+    FooterComponent,
+    ScheduleComponent,
+    MattComponent,
+    CassieComponent,
+    KaitlynComponent,
+    RahimaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    // Angular 
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
