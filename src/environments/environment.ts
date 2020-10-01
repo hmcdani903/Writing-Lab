@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBd4RMBCYhCOeCKcM_QIic3C_5T1ZwMHTs",
-    authDomain: "writing-lab.firebaseapp.com",
-    databaseURL: "https://writing-lab.firebaseio.com",
-    projectId: "writing-lab",
-    storageBucket: "writing-lab.appspot.com",
-    messagingSenderId: "699024577778",
-    appId: "1:699024577778:web:f7f4944cd7e6a757c8ec6b",
-    measurementId: "G-VM88KBHMFE"
+    apiKey: "AIzaSyDWBV03iyfTKUsju90bc7WutwrvpD0PYn0",
+    authDomain: "writing-lab-884ac.firebaseapp.com",
+    databaseURL: "https://writing-lab-884ac.firebaseio.com",
+    projectId: "writing-lab-884ac",
+    storageBucket: "writing-lab-884ac.appspot.com",
+    messagingSenderId: "136326359240",
+    appId: "1:136326359240:web:e22ab89475ce16bf171dfd",
+    measurementId: "G-HB8H3TD9Q5"
   }
 };
 
