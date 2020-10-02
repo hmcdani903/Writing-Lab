@@ -17,10 +17,10 @@ import { NgModule } from '@angular/core';
 })
 export class ScheduleComponent implements OnInit {
 
-  students: Observable<any[]>;
+  faculty: Observable<any[]>;
 
   constructor(db: AngularFirestore) {
-    this.students = db.collection('students').valueChanges();
+    this.faculty = db.collection('faculty').valueChanges();
   }
 
   ngOnInit(): void {
