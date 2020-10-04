@@ -10,6 +10,7 @@ import { MattComponent } from './matt/matt.component';
 import { KaitlynComponent } from './kaitlyn/kaitlyn.component';
 import { CassieComponent } from './cassie/cassie.component';
 import { RahimaComponent } from './rahima/rahima.component';
+import { SelectorComponent } from './selector/selector.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: 'Kaitlyn', component: KaitlynComponent },
   { path: 'Cassie', component: CassieComponent },
   { path: 'Rahima', component: RahimaComponent },
+  { path: 'Selector', component: SelectorComponent}
+  
 ];
 
 @NgModule({

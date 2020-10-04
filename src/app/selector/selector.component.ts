@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rahima',
-  templateUrl: './rahima.component.html',
-  styleUrls: ['./rahima.component.css']
+  selector: 'app-selector',
+  templateUrl: './selector.component.html',
+  styleUrls: ['./selector.component.css']
 })
+export class SelectorComponent implements OnInit {
 
-
-export class RahimaComponent implements OnInit {
-  title = 'Writing Lab';
   constructor() { }
   clicked = false;
 
-  buttonName= "Click Here!" ;
+  buttonName= "Click me!" ;
   buttonClicked(){
     this.clicked = true;
     this.buttonName = 'Clicked';
@@ -21,7 +19,6 @@ export class RahimaComponent implements OnInit {
    console.log('Press the button');
 
 }
-
 
 
   ngOnInit(): void {

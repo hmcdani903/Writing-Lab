@@ -14,6 +14,7 @@ import { MattComponent } from './matt/matt.component';
 import { CassieComponent } from './cassie/cassie.component';
 import { KaitlynComponent } from './kaitlyn/kaitlyn.component';
 import { RahimaComponent } from './rahima/rahima.component';
+import { SelectorComponent } from './selector/selector.component';
 
 // firebase imports 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -32,7 +33,8 @@ import { environment } from '../environments/environment';
     MattComponent,
     CassieComponent,
     KaitlynComponent,
-    RahimaComponent
+    RahimaComponent,
+    SelectorComponent
   ],
   imports: [
     BrowserModule,
