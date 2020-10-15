@@ -14,3 +14,6 @@ a:hover{
     border-bottom: lightblue solid 3px;
     transition: ease-in-out 1.5s;
 }
+.special {
+    color: red;
+}

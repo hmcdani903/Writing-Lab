@@ -1,6 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
+// firebase imports 
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+// Auth service
+import { AuthService } from "./shared/services/auth.service";
+
+// components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -14,11 +25,10 @@ import { MattComponent } from './matt/matt.component';
 import { CassieComponent } from './cassie/cassie.component';
 import { KaitlynComponent } from './kaitlyn/kaitlyn.component';
 import { RahimaComponent } from './rahima/rahima.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
-// firebase imports 
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -32,17 +42,22 @@ import { environment } from '../environments/environment';
     MattComponent,
     CassieComponent,
     KaitlynComponent,
-    RahimaComponent
+    RahimaComponent,
+    SignUpComponent,
+    AppointmentsComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
-    // Angular 
+    // Firebase
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService],
+  bootstrap: [AppComponent, AppointmentsComponent, SignInComponent, SignUpComponent, PasswordResetComponent]
 })
 export class AppModule { }

@@ -4,11 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-// Calendar 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-schedule',
@@ -17,6 +12,10 @@ import { NgModule } from '@angular/core';
 })
 export class ScheduleComponent implements OnInit {
 
+  availableDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  selectedDay = "Monday";
+
+  facultyColor = "orange";
   faculty: Observable<any[]>;
 
   constructor(db: AngularFirestore) {
