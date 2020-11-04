@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgChatModule } from 'ng-chat';
+import { MaterialModule } from './material.module';
 
 // firebase imports 
 import { environment } from '../environments/environment';
@@ -22,12 +24,11 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { FooterComponent } from './footer/footer.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { MattComponent } from './matt/matt.component';
-import { CassieComponent } from './cassie/cassie.component';
-import { KaitlynComponent } from './kaitlyn/kaitlyn.component';
 import { RahimaComponent } from './rahima/rahima.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
@@ -40,24 +41,25 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     FooterComponent,
     ScheduleComponent,
     MattComponent,
-    CassieComponent,
-    KaitlynComponent,
     RahimaComponent,
     SignUpComponent,
     AppointmentsComponent,
     PasswordResetComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    NgChatModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MaterialModule
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent, AppointmentsComponent, SignInComponent, SignUpComponent, PasswordResetComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

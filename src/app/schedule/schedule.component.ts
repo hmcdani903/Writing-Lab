@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.css']
+  // styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
 

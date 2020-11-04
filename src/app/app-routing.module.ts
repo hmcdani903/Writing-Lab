@@ -8,11 +8,10 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 import { MattComponent } from './matt/matt.component';
-import { KaitlynComponent } from './kaitlyn/kaitlyn.component';
-import { CassieComponent } from './cassie/cassie.component';
 import { RahimaComponent } from './rahima/rahima.component';
 
 import { AuthGuard } from "./shared/guard/auth.guard";
@@ -26,8 +25,7 @@ const routes: Routes = [
   { path: 'appointments', component: AppointmentsComponent },
 
   { path: 'Matt', component: MattComponent },
-  { path: 'Kaitlyn', component: KaitlynComponent },
-  { path: 'Cassie', component: CassieComponent },
+  { path: 'chat', component: ChatComponent },
   { path: 'Rahima', component: RahimaComponent },
 ];
 

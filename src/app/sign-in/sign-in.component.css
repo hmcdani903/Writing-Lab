@@ -68,5 +68,6 @@ button:hover {
 }
 
 .googleBtn {
-    background-color: purple;
+  background-color: #dd4b39;
+  color: white;
 }

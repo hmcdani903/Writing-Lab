@@ -1,4 +1,4 @@
-<div class="container">
+<div  class="container" >
   <h1>Sign In</h1>
   <p>Please enter your credentials.</p>
   <hr/>
@@ -10,13 +10,13 @@
     <input type="password" class="formControl" placeholder="Password" name="psw" #userPassword required>
 
   <!-- Calling SignIn Api from AuthService -->
-    <button (click)="authService.SignIn(userName.value, userPassword.value)">Log In</button>
+    <button type="submit" (click)="authService.SignIn(userName.value, userPassword.value)">Log In</button>
 <hr/> 
 
   <!-- Calling GoogleAuth Api from AuthService -->
   <div class="formGroup">
     <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-      <i class="fab fa-google-plus-g"></i>
+      <i class="fa fa-google fa-fw"></i>
       Log in with Google
     </button>
   </div>
