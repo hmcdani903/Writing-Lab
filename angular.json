@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "writing-lab"
+  "defaultProject": "writing-lab",
+  "cli": {
+    "analytics": "2b99875c-3ced-4cc3-93fb-17a9dbcb9354"
+  }
 }
