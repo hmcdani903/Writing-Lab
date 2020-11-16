@@ -10,10 +10,6 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { ChatComponent } from './chat/chat.component';
 
-
-import { MattComponent } from './matt/matt.component';
-import { RahimaComponent } from './rahima/rahima.component';
-
 import { AuthGuard } from "./shared/guard/auth.guard";
 
 const routes: Routes = [
@@ -23,10 +19,7 @@ const routes: Routes = [
   { path: 'password-reset', component: PasswordResetComponent },
   { path: 'scheduler', component: ScheduleComponent },
   { path: 'appointments', component: AppointmentsComponent },
-
-  { path: 'Matt', component: MattComponent },
   { path: 'chat', component: ChatComponent },
-  { path: 'Rahima', component: RahimaComponent },
 ];
 
 @NgModule({

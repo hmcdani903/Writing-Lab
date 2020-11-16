@@ -17,9 +17,11 @@ export class ScheduleComponent implements OnInit {
 
   facultyColor = "orange";
   faculty: Observable<any[]>;
+  students: Observable<any[]>;
 
   constructor(db: AngularFirestore) {
     this.faculty = db.collection('faculty').valueChanges();
+    this.students = db.collection('students').valueChanges();
   }
 
   ngOnInit(): void {

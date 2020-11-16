@@ -23,8 +23,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { FooterComponent } from './footer/footer.component';
 import { ScheduleComponent } from './schedule/schedule.component';
-import { MattComponent } from './matt/matt.component';
-import { RahimaComponent } from './rahima/rahima.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
@@ -40,8 +38,6 @@ import { ChatComponent } from './chat/chat.component';
     WelcomeComponent,
     FooterComponent,
     ScheduleComponent,
-    MattComponent,
-    RahimaComponent,
     SignUpComponent,
     AppointmentsComponent,
     PasswordResetComponent,
