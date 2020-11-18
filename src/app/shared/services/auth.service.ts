@@ -4,20 +4,34 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { Observable } from 'rxjs';
+
+declare var gapi: any;
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
+
+  // Google Calendar
+  user$: Observable<firebase.User>; 
+  calendarItems: any[];
+
+  // Sign In 
   userData: any; // Save logged in user data
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
-    public ngZone: NgZone // NgZone service to remove outside scope warning
-  ) {    
+    public ngZone: NgZone // NgZone service to remove outside scope warning,
+  ) {
+    // Google Calendar
+    this.initClient();
+    this.user$ = afAuth.authState;
+
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
@@ -31,6 +45,66 @@ export class AuthService {
       }
     })
   }
+
+  // Google Calendar
+  initClient() {
+    gapi.load('client', () => {
+      console.log('loaded google calendar client');
+      
+      // Credentials are client safe
+      gapi.client.init({
+        apiKey: 'AIzaSyDWBV03iyfTKUsju90bc7WutwrvpD0PYn0',
+        clientId: '136326359240-er2e6f4b8regrdhn3gbtkc4v50ic2722.apps.googleusercontent.com',
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+        scope: 'https://www.googleapis.com/auth/calendar'
+      })
+      gapi.client.load('calendar', 'v3', () => console.log('loaded calendar.'));
+    });
+  }
+  async login() {
+    const googleAuth = gapi.auth2.getAuthInstance();
+    const googleUser = await googleAuth.signIn();
+
+    const token = googleUser.getAuthResponse().id_token;
+
+    console.log(googleUser)
+
+    const credential = auth.GoogleAuthProvider.credential(token);
+
+    await this.afAuth.signInAndRetrieveDataWithCredential(credential);
+  }
+  logout() {
+    this.afAuth.signOut();
+  }
+  async getCalendar() {
+    const events = await gapi.client.calendar.events.list({
+      calendarId: 'primary',
+      timeMin: new Date().toISOString(),
+      showDeleted: false,
+      singleEvents: true,
+      maxResults: 10,
+      orderBy: 'startTime'
+    })
+    console.log(events)
+    this.calendarItems = events.result.items;
+  }
+  async insertEvent() {
+    const insert = await gapi.client.calendar.events.insert({
+      calendarId: 'primary',
+      start: {
+        dateTime: hoursFromNow(2),
+        timeZone: 'America/Los_Angeles'
+      }, 
+      end: {
+        dateTime: hoursFromNow(3),
+        timeZone: 'America/Los_Angeles'
+      }, 
+      summary: 'Have Fun!!!',
+      description: 'Do some cool stuff and have a fun time doing it'
+    })
+    await this.getCalendar();
+  }
+  
 
   // Sign in with email/password
   SignIn(email, password) {
@@ -126,3 +200,5 @@ export class AuthService {
   }
 
 }
+
+const hoursFromNow = (n) => new Date(Date.now() + n * 1000 * 60 * 60 ).toISOString();

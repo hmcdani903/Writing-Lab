@@ -49,8 +49,23 @@
                     </div>
                 </div>
 
+                <!-- <div>
+                    <div *ngIf="authService.user$ | async">
+                        <button (click)="authService.getCalendar()" class="btn btn-primary">Get Calendar</button>
+                        <button (click)="authService.insertEvent()" class="btn btn-primary">Add Event</button>
+                        <div *ngFor="let item of authService.calendarItems">
+                            <h3>{{ item.summary }} - {{ item.status }}</h3>
+                            <p><em>Created {{ item.created }}</em></p>
+                            <p>{{ item.description }}</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div> -->
+                <ejs-schedule 
+                    [currentView]='defaultView'
+                    
+                ></ejs-schedule>
             </div>
         </main>
-
     </div>
 </div>

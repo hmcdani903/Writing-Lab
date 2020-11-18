@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { View } from '@syncfusion/ej2-angular-schedule';
 import { AuthService } from "../shared/services/auth.service";
 
 @Component({
@@ -7,6 +8,7 @@ import { AuthService } from "../shared/services/auth.service";
   // styleUrls: ['./appointments.component.css']
 })
 export class AppointmentsComponent implements OnInit {
+  public defaultView : View = 'Month';
 
   constructor(
     public authService: AuthService
