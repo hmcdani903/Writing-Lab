@@ -81,11 +81,11 @@ const mockUsers: IChatParticipant[] = [
 
 export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
   public static mockedParticipants: IChatParticipant[] = mockUsers;
-  public setUsers(users : IChatParticipant[]){
+  public setUsers(users: IChatParticipant[]) {
     MyAdapter.mockedParticipants = users;
   }
 
-  constructor(users){
+  constructor(users) {
     super();
     MyAdapter.mockedParticipants = users;
   }
@@ -106,7 +106,6 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
   /* GET MESSAGES */
   getMessageHistory(destinataryId: any): Observable<Message[]> {
     let mockedHistory: Array<Message>;
-
     mockedHistory = [
       {
         fromId: 1,
@@ -127,31 +126,20 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
       replyMessage.message = "You have typed '" + message.message + "'";
       replyMessage.dateSent = new Date();
 
-      if (isNaN(message.toId)) {
-        let group = MyAdapter.mockedParticipants.find(x => x.id == message.toId) as Group;
+      /* Gets the current logged-in user's email and sends the message with the user's email to the database. */
+      let currentUser = JSON.parse(localStorage.getItem('user'));
+      db.collection("chat").add({
+        from: currentUser.uid,
+        to: message.toId,
+        message: message.message,
+        time: new Date()
+      });
+      replyMessage.fromId = message.toId;
+      replyMessage.toId = message.fromId;
 
-        /* Message to a group. Pick up any participant for this */
-        let randomParticipantIndex = Math.floor(Math.random() * group.chattingTo.length);
-        replyMessage.fromId = group.chattingTo[randomParticipantIndex].id;
+      let user = MyAdapter.mockedParticipants.find(x => x.id == replyMessage.fromId);
 
-        replyMessage.toId = message.toId;
-
-        this.onMessageReceived(group, replyMessage);
-      }
-      else {
-        /* Gets the current logged-in user's email and sends the message with the user's email to the database. */
-        let currentUser = JSON.parse(localStorage.getItem('user'));
-        db.collection("chat").add({
-          email: currentUser.email,
-          message: message.message
-        });
-        replyMessage.fromId = message.toId;
-        replyMessage.toId = message.fromId;
-
-        let user = MyAdapter.mockedParticipants.find(x => x.id == replyMessage.fromId);
-
-        this.onMessageReceived(user, replyMessage);
-      }
+      this.onMessageReceived(user, replyMessage);
     }, 1000);
   }
 

@@ -47,6 +47,7 @@ export class AuthService {
       }
     })
     
+    /* Load users */
     this.afs.collection('users').get().subscribe(users => {
       let loadedUsers = [];
       users.forEach(user => {
@@ -57,6 +58,20 @@ export class AuthService {
         })
       })
       localStorage.setItem('loadedUsers', JSON.stringify(loadedUsers));
+    })
+
+    /* Load messages */
+    this.afs.collection('chat').get().subscribe(messages => {
+      let loadedMessages = [];
+      messages.forEach(message => {
+        console.log(message.data());
+        // loadedMessages.push({
+        //   "from": message.data().from,
+        //   "to": message.data().to,
+        //   "message": message.data().message
+        // })
+      })
+      // localStorage.setItem('loadedUsers', JSON.stringify(loadedUsers));
     })
   }
 
