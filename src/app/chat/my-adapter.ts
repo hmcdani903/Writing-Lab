@@ -78,44 +78,21 @@ const mockUsers: IChatParticipant[] = [
     status: ChatParticipantStatus.Away
   }
 ];
-let userID = 1;
-let myUsers: IChatParticipant[] = [];
 
 export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
-  public static myUsers: IChatParticipant[] = [];
-
-  constructor() {
-    super();
-    try {
-      db.collection("users").onSnapshot(function (doc) {
-        doc.forEach(u => {
-          myUsers.push(
-            {
-              participantType: ChatParticipantType.User,
-              // id: u.data().uid,
-              id: userID++,
-              displayName: u.data().email,
-              avatar: "https://66.media.tumblr.com/avatar_9dd9bb497b75_128.pnj",
-              status: ChatParticipantStatus.Online
-            }
-          );
-        })
-        console.log("users loaded succesfully");
-        // console.log(myUsers);
-      });
-    }
-    catch (error) {
-      console.log("users could not be loaded");
-      myUsers = mockUsers;
-    }
+  public static mockedParticipants: IChatParticipant[] = mockUsers;
+  public setUsers(users : IChatParticipant[]){
+    MyAdapter.mockedParticipants = users;
   }
 
-  // LOAD USERS
-  public static mockedParticipants: IChatParticipant[] = mockUsers;
-
+  constructor(users){
+    super();
+    MyAdapter.mockedParticipants = users;
+  }
 
   // DISPLAY USERS
   listFriends(): Observable<ParticipantResponse[]> {
+
     return of(MyAdapter.mockedParticipants.map(user => {
       console.log("listFriends() works");
       let participantResponse = new ParticipantResponse();
@@ -126,10 +103,9 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
       console.log(participantResponse);
       return participantResponse;
     }));
-
   }
 
-  // GET MESSAGES 
+  /* GET MESSAGES */
   getMessageHistory(destinataryId: any): Observable<Message[]> {
     let mockedHistory: Array<Message>;
 
@@ -145,7 +121,7 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
     return of(mockedHistory).pipe(delay(2000));
   }
 
-  // SEND MESSAGES TO FIREBASE
+  /* SEND MESSAGES TO FIREBASE */
   sendMessage(message: Message): void {
     setTimeout(() => {
       let replyMessage = new Message();
@@ -156,7 +132,7 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
       if (isNaN(message.toId)) {
         let group = MyAdapter.mockedParticipants.find(x => x.id == message.toId) as Group;
 
-        // Message to a group. Pick up any participant for this
+        /* Message to a group. Pick up any participant for this */
         let randomParticipantIndex = Math.floor(Math.random() * group.chattingTo.length);
         replyMessage.fromId = group.chattingTo[randomParticipantIndex].id;
 
@@ -190,10 +166,9 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
       second.displayName > first.displayName ? -1 : 1
     );
 
-    // Trigger update of friends list
+    /* Trigger update of friends list */
     this.listFriends().subscribe(response => {
       this.onFriendsListChanged(response);
     });
   }
 }
-
