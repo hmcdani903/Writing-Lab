@@ -94,13 +94,11 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
   listFriends(): Observable<ParticipantResponse[]> {
 
     return of(MyAdapter.mockedParticipants.map(user => {
-      console.log("listFriends() works");
       let participantResponse = new ParticipantResponse();
       participantResponse.participant = user;
       participantResponse.metadata = {
         totalUnreadMessages: Math.floor(Math.random() * 10)
       }
-      console.log(participantResponse);
       return participantResponse;
     }));
   }
@@ -143,7 +141,6 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
       else {
         /* Gets the current logged-in user's email and sends the message with the user's email to the database. */
         let currentUser = JSON.parse(localStorage.getItem('user'));
-        // console.log(currentUser.email);
         db.collection("chat").add({
           email: currentUser.email,
           message: message.message

@@ -50,10 +50,10 @@ export class AuthService {
     this.afs.collection('users').get().subscribe(users => {
       let loadedUsers = [];
       users.forEach(user => {
-        console.log(user.data().uid);
         loadedUsers.push({
-          id: user.data().uid,
-          email: user.data().email
+          "id": user.data().uid,
+          "email": user.data().email,
+          "photo": user.data().photoURL
         })
       })
       localStorage.setItem('loadedUsers', JSON.stringify(loadedUsers));

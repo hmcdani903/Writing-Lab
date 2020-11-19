@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-// Angular Firebase: importing database 
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-
 // ng chat
 import { ChatAdapter, ChatParticipantStatus, ChatParticipantType, IChatParticipant } from 'ng-chat';
 import { MyAdapter } from './my-adapter';
-import * as firebase from 'firebase';
-import { setTime } from '@syncfusion/ej2-angular-schedule';
 
 @Component({
   selector: 'app-chat',
@@ -22,28 +16,21 @@ export class ChatComponent implements OnInit {
   adapter: MyAdapter;
 
   constructor() {
-    console.log(localStorage.getItem('loadedUsers'));
+    // console.log(localStorage.getItem('loadedUsers'));
+    let users = JSON.parse(localStorage.getItem('loadedUsers'));
+    for(let i = 0; i < users.length; i++){
+      // console.log(users[i].id);
+      this.loadedUsers.push({
+        participantType: ChatParticipantType.User,
+        id: users[i].id,
+        displayName: users[i].email,
+        avatar: users[i].photo,
+        status: ChatParticipantStatus.Online
+      })
+    }
+    // console.log(this.loadedUsers);
+    this.adapter = new MyAdapter(this.loadedUsers);
   }
 
-  ngOnInit(): void {
-  //   try {
-  //     let db = firebase.firestore();
-  //     db.collection('users').onSnapshot(snap => {
-  //       snap.forEach(user => {
-  //         this.loadedUsers.push({
-  //           participantType: ChatParticipantType.User,
-  //           id: user.data().uid,
-  //           displayName: user.data().email,
-  //           avatar: "https://66.media.tumblr.com/avatar_9dd9bb497b75_128.pnj",
-  //           status: ChatParticipantStatus.Online
-  //         })
-  //       })
-  //     })
-  //     this.adapter = new MyAdapter(this.loadedUsers);
-  //     console.log(this.loadedUsers);
-  //   }
-  //   catch (error) {
-  //     console.log("users could not be loaded");
-  //   }
-  }
+  ngOnInit(): void {}
 }
