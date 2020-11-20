@@ -1,7 +1,15 @@
-<h1
-    *ngIf="!(authService.isLoggedIn)" 
-    class="d-flex justify-content-center"
->Please Sign In</h1>
+<div *ngIf="!(authService.isLoggedIn)" class="container-fluid">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="inner-adjust">
+
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Chat</h1>
+            </div>
+            <h3 class="d-flex justify-content-center text-info">Please Sign In To Begin Chatting</h3>
+        </div>
+    </main>
+</div>
+
 
 <h1
     *ngIf="(authService.isLoggedIn)" 

@@ -1,6 +1,17 @@
+<div *ngIf="!(authService.isLoggedIn)" class="container-fluid">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="inner-adjust">
 
-<!-- Sidebar navigation -->
-<div class="container-fluid">
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">User Profile</h1>
+            </div>
+            <h3 class="d-flex justify-content-center text-info">Please Sign In To View Profile</h3>
+        </div>
+    </main>
+</div>
+
+
+<div *ngIf="(authService.isLoggedIn)" class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
@@ -40,7 +51,8 @@
                                 src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
                                 alt="{{user.displayName}}">
                             <div class="media-body">
-                                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}} </strong> <a href="#"><i class="fa fa-edit"></i></a></h1>
+                                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}} </strong> <a
+                                        href="#"><i class="fa fa-edit"></i></a></h1>
                                 <p>User ID: <strong>{{user.uid}}</strong></p>
                                 <p>Email: <strong>{{user.email}}</strong></p>
                                 <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
@@ -48,22 +60,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <div>
-                    <div *ngIf="authService.user$ | async">
-                        <button (click)="authService.getCalendar()" class="btn btn-primary">Get Calendar</button>
-                        <button (click)="authService.insertEvent()" class="btn btn-primary">Add Event</button>
-                        <div *ngFor="let item of authService.calendarItems">
-                            <h3>{{ item.summary }} - {{ item.status }}</h3>
-                            <p><em>Created {{ item.created }}</em></p>
-                            <p>{{ item.description }}</p>
-                            <hr>
-                        </div>
-                    </div>
-                </div> -->
-                <ejs-schedule 
-                    [currentView]='defaultView'
-                ></ejs-schedule>
+                <ejs-schedule [currentView]='defaultView'></ejs-schedule>
             </div>
         </main>
     </div>
