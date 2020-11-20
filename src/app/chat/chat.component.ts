@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 // ng chat
-import { ChatAdapter, ChatParticipantStatus, ChatParticipantType, IChatParticipant } from 'ng-chat';
+import { ChatParticipantStatus, ChatParticipantType, IChatParticipant } from 'ng-chat';
+import { AuthService } from '../shared/services/auth.service';
 import { MyAdapter } from './my-adapter';
 
 @Component({
@@ -11,15 +12,15 @@ import { MyAdapter } from './my-adapter';
 export class ChatComponent implements OnInit {
 
   // ng chat
-  currentUserId = JSON.parse(localStorage.getItem('user')).uid;
+  currentUserId;
   loadedUsers: IChatParticipant[] = [];
   adapter: MyAdapter;
 
-  constructor() {
-    // console.log(localStorage.getItem('loadedUsers'));
+  constructor(public authService: AuthService) {
+    this.currentUserId = authService.isLoggedIn ? JSON.parse(localStorage.getItem('user')).uid : 999;
+
     let users = JSON.parse(localStorage.getItem('loadedUsers'));
     for(let i = 0; i < users.length; i++){
-      // console.log(users[i].id);
       this.loadedUsers.push({
         participantType: ChatParticipantType.User,
         id: users[i].id,
@@ -28,7 +29,6 @@ export class ChatComponent implements OnInit {
         status: ChatParticipantStatus.Online
       })
     }
-    // console.log(this.loadedUsers);
     this.adapter = new MyAdapter(this.loadedUsers);
   }
 

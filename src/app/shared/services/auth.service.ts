@@ -4,23 +4,12 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
-import { Observable } from 'rxjs';
-import { ChatParticipantStatus, ChatParticipantType, IChatParticipant } from 'ng-chat';
-import * as firebase from 'firebase';
-
-declare var gapi: any;
-
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-
-  /* Google Calendar */
-  // user$: Observable<firebase.User>; 
-  // calendarItems: any[];
-
   // Sign In 
   userData: any; // Save logged in user data
 
@@ -28,12 +17,8 @@ export class AuthService {
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
-    public ngZone: NgZone
+    public ngZone: NgZone,
   ) {
-    /* Google Calendar */
-    // this.initClient();
-    // this.user$ = afAuth.authState;
-
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
@@ -64,14 +49,15 @@ export class AuthService {
     this.afs.collection('chat').get().subscribe(messages => {
       let loadedMessages = [];
       messages.forEach(message => {
-        console.log(message.data());
-        // loadedMessages.push({
-        //   "from": message.data().from,
-        //   "to": message.data().to,
-        //   "message": message.data().message
-        // })
+        // console.log(message.data());
+        loadedMessages.push({
+          "from": message.data().from,
+          "to": message.data().to,
+          "message": message.data().message,
+          "time": message.data().time
+        })
       })
-      // localStorage.setItem('loadedUsers', JSON.stringify(loadedUsers));
+      localStorage.setItem('loadedMessages', JSON.stringify(loadedMessages));
     })
   }
 
@@ -119,10 +105,12 @@ export class AuthService {
     })
   }
 
-  // Returns true when user is looged in and email is verified
+  // Returns true when user is looged in
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    /* and email is verified */
+    // return (user !== null && user.emailVerified !== false) ? true : false;
+    return (user !== null) ? true : false;
   }
 
   // Sign in with Google
@@ -169,6 +157,3 @@ export class AuthService {
   }
 
 }
-
-/* Google Calendar */
-// const hoursFromNow = (n) => new Date(Date.now() + n * 1000 * 60 * 60 ).toISOString();

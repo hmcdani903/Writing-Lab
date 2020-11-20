@@ -1,5 +1,15 @@
-<h1>In progress</h1>
+<h1
+    *ngIf="!(authService.isLoggedIn)" 
+    class="d-flex justify-content-center"
+>Please Sign In</h1>
+
+<h1
+    *ngIf="(authService.isLoggedIn)" 
+    class="d-flex justify-content-center"
+>Have Fun Chatting!</h1>
+
 <ng-chat 
+    *ngIf="(authService.isLoggedIn)" 
     [adapter]="adapter" 
     [userId]="currentUserId"
     [isViewportOnMobileEnabled]=true

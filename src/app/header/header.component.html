@@ -1,9 +1,24 @@
 <header class="container">
   <div class="jumbotron">
+    
     <img src="../assets/ncc.jpg" width="100" alt="logo for NCC Color blue and black background"
       class="img-fluid rounded" />
     <h2>Newton Community College</h2>
+
     <p class="display-4">Writing Center</p>
-    <button type="button" class="btn btn-info float-right" routerLink="/signin">Sign In</button>
+    <button 
+      *ngIf="!(authService.isLoggedIn)" 
+      type="button"
+      class="btn btn-info float-right" 
+      routerLink="/signin"
+    >Sign In</button>
+
+    <button 
+      *ngIf="(authService.isLoggedIn)" 
+      type="button" 
+      class="btn btn-danger float-right" 
+      (click)="authService.SignOut()" 
+    >Sign Out</button>
+
   </div>
 </header>
