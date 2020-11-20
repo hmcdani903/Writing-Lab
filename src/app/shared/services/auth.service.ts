@@ -161,9 +161,11 @@ export class AuthService {
   DeleteAccount(){
     if(confirm('Are you sure you wish to delete your account?')){
       if(confirm('This action cannot be undone. Please confirm that the account will be deleted.')){
-        this.afs.doc(`users/${JSON.parse(localStorage.getItem('user')).uid}`).delete();
-        localStorage.removeItem('user');
-        this.router.navigate(['/signin']);
+        return this.afAuth.signOut().then(() => {
+          this.afs.doc(`users/${JSON.parse(localStorage.getItem('user')).uid}`).delete();
+          localStorage.removeItem('user');
+          this.router.navigate(['/signin']);
+        })
       }
     }
   }
