@@ -1,3 +1,4 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { ChatAdapter, IChatGroupAdapter, User, Group, Message, ChatParticipantStatus, ParticipantResponse, ParticipantMetadata, ChatParticipantType, IChatParticipant } from 'ng-chat';
 import { Observable, of } from 'rxjs';
@@ -105,15 +106,20 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
 
   /* GET MESSAGES */
   getMessageHistory(destinataryId: any): Observable<Message[]> {
-    let mockedHistory: Array<Message>;
-    mockedHistory = [
-      {
-        fromId: 1,
-        toId: 999,
-        message: "Hi there, just type any message bellow to test this Angular module.",
-        dateSent: new Date()
+    let mockedHistory: Array<Message> = [];
+    let currentUser = JSON.parse(localStorage.getItem('user'));
+
+    let messages = JSON.parse(localStorage.getItem('loadedMessages'));
+    for(let i = 0; i < messages.length; i++){
+      if(messages[i].to == currentUser.uid && messages[i].from == destinataryId){
+        mockedHistory.push({
+          fromId: messages[i].from,
+          toId: messages[i].to,
+          message: messages[i].message,
+          dateSent: new Date()
+        })
       }
-    ];
+    }
 
     return of(mockedHistory).pipe(delay(2000));
   }

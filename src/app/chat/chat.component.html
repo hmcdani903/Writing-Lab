@@ -10,11 +10,14 @@
     </main>
 </div>
 
-
 <h1
     *ngIf="(authService.isLoggedIn)" 
     class="d-flex justify-content-center"
 >Have Fun Chatting!</h1>
+<button 
+    (click)="authService.DeleteAllMyMessages()"
+    class="btn btn-danger"
+>Delete All My Messages</button>
 
 <ng-chat 
     *ngIf="(authService.isLoggedIn)" 

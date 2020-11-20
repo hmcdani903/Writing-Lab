@@ -170,4 +170,22 @@ export class AuthService {
     }
   }
 
+  DeleteAllMyMessages(){
+    if(confirm('Are you sure you wish to delete your messages?')){
+      if(confirm('This action cannot be undone. Please confirm the messages you sent will be deleted. After this is done, you will have to sign-in again.')){
+        return this.afAuth.signOut().then(() => {
+          this.afs.collection('chat').get().subscribe(messages => {
+            messages.forEach(m => {
+              if(m.data().from == JSON.parse(localStorage.getItem('user')).uid){
+                this.afs.doc(`chat/${m.id}`).delete();
+              }
+            })
+          });
+          localStorage.removeItem('user');
+          this.router.navigate(['/signin']);
+        })
+      }
+    }
+  }
+
 }
