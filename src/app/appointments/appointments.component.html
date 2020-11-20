@@ -47,7 +47,7 @@
                 <div class="row" *ngIf="authService.userData as user">
                     <div class="col-md-12">
                         <div class="media">
-                            <img class="align-self-start mr-5 img-thumbnail rounded-circle"
+                            <img class="align-self-start mr-5 img-thumbnail rounded-circle" width="200px"
                                 src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
                                 alt="{{user.displayName}}">
                             <div class="media-body">
@@ -60,6 +60,26 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row pt-5 pb-5">
+                    <div class="col-md-12">
+                        <h3>Available tutors for
+                            <!-- <u>{{selectedDay}}</u> -->
+                            <select class="form-control custom-control-inline" [(ngModel)]="selectedDay">
+                                <option *ngFor="let day of availableDays" [ngValue]="day">{{day}}</option>
+                            </select>
+                        </h3>
+                        <ul *ngFor="let f of faculty | async">
+                            <li *ngIf="f.workDay === selectedDay">
+                                <p><b style="color: {{facultyColor}};">{{f.FirstName}} {{f.LastName}}</b> is available
+                                    from
+                                    <b>{{f.clockIn}} to {{f.clockOut}}</b>.
+                                <p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
                 <ejs-schedule [currentView]='defaultView'></ejs-schedule>
             </div>
         </main>
