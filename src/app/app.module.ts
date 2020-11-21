@@ -22,7 +22,6 @@ import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { FooterComponent } from './footer/footer.component';
-import { ScheduleComponent } from './schedule/schedule.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
@@ -40,7 +39,6 @@ import { ScheduleModule, RecurrenceEditorModule, DayService, WeekService, WorkWe
     NavbarComponent,
     WelcomeComponent,
     FooterComponent,
-    ScheduleComponent,
     SignUpComponent,
     AppointmentsComponent,
     PasswordResetComponent,
