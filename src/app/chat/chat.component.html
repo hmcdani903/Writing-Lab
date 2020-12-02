@@ -10,19 +10,39 @@
     </main>
 </div>
 
-<h1
+<h1 
     *ngIf="(authService.isLoggedIn)" 
-    class="d-flex justify-content-center"
->Have Fun Chatting!</h1>
+    class="d-flex justify-content-center">
+    Have Fun Chatting!
+</h1>
 <button 
-    (click)="authService.DeleteAllMyMessages()"
-    class="btn btn-danger"
->Delete All My Messages</button>
+    (click)="authService.DeleteAllMyMessages()" class="btn btn-danger">Delete All My Messages
+</button>
+
+<br /><br />
+
+<form class="w-50">
+    <div class="form-group">
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="{{getRecentMessageSent()}}"
+            #newMessage
+            required
+        />
+    </div>
+    <div class="form-group">
+        <button 
+            type="submit" 
+            class="form-control btn btn-primary"
+            (click)="changeMessage(newMessage.value)"
+            >Edit Recent Message Sent
+        </button>
+    </div>
+</form>
 
 <ng-chat 
     *ngIf="(authService.isLoggedIn)" 
     [adapter]="adapter" 
-    [userId]="currentUserId"
-    [isViewportOnMobileEnabled]=true
->
+    [userId]="currentUserId" [isViewportOnMobileEnabled]=true>
 </ng-chat>

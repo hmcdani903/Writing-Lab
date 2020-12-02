@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 // ng chat
+import * as firebase from 'firebase';
 import { ChatParticipantStatus, ChatParticipantType, IChatParticipant } from 'ng-chat';
 import { AuthService } from '../shared/services/auth.service';
 import { MyAdapter } from './my-adapter';
+
+const db = firebase.firestore();
 
 @Component({
   selector: 'app-chat',
@@ -15,8 +18,13 @@ export class ChatComponent implements OnInit {
   currentUserId;
   loadedUsers: IChatParticipant[] = [];
   adapter: MyAdapter;
+  recentMessageSent: String;
 
   constructor(public authService: AuthService) {
+    db.collection('chat').doc(localStorage.getItem('recentMessageId')).get().then(res => {
+      console.log(res.data().message);
+    });
+
     this.currentUserId = authService.isLoggedIn ? JSON.parse(localStorage.getItem('user')).uid : 999;
 
     let users = JSON.parse(localStorage.getItem('loadedUsers'));
@@ -30,6 +38,22 @@ export class ChatComponent implements OnInit {
       })
     }
     this.adapter = new MyAdapter(this.loadedUsers);
+  }
+
+  getRecentMessageSent(){
+    
+    return localStorage.getItem('recentMessage');
+  }
+  recentMessageSentIsEmpty(){
+    if (localStorage.getItem('recentMessage') == ''){
+      return true;
+    }
+    else return false;
+  }
+  changeMessage(newMessage: String){
+    console.log(newMessage);
+    db.collection('chat').doc(localStorage.getItem('recentMessageId')).update({message: newMessage});
+    localStorage.setItem("recentMessage", newMessage.valueOf());
   }
 
   ngOnInit(): void {}
