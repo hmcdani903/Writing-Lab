@@ -1,6 +1,5 @@
-import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
-import { ChatAdapter, IChatGroupAdapter, User, Group, Message, ChatParticipantStatus, ParticipantResponse, ParticipantMetadata, ChatParticipantType, IChatParticipant } from 'ng-chat';
+import { ChatAdapter, IChatGroupAdapter, Group, Message, ChatParticipantStatus, ParticipantResponse, ChatParticipantType, IChatParticipant } from 'ng-chat';
 import { Observable, of } from 'rxjs';
 import { delay } from "rxjs/operators";
 import { environment } from '../../environments/environment';
@@ -120,33 +119,24 @@ export class MyAdapter extends ChatAdapter implements IChatGroupAdapter {
         })
       }
     }
-
     return of(mockedHistory).pipe(delay(2000));
   }
 
   /* SEND MESSAGES TO FIREBASE */
   sendMessage(message: Message): void {
     setTimeout(() => {
-      let replyMessage = new Message();
-
-      replyMessage.message = "You have typed '" + message.message + "'";
-      replyMessage.dateSent = new Date();
-
-      /* Gets the current logged-in user's email and sends the message with the user's email to the database. */
       let currentUser = JSON.parse(localStorage.getItem('user'));
       db.collection("chat").add({
         from: currentUser.uid,
         to: message.toId,
         message: message.message,
         time: new Date()
+      }).then(res => {
+        localStorage.setItem("recentMessageId", res.id);
       });
-      replyMessage.fromId = message.toId;
-      replyMessage.toId = message.fromId;
-
-      let user = MyAdapter.mockedParticipants.find(x => x.id == replyMessage.fromId);
-
-      this.onMessageReceived(user, replyMessage);
     }, 1000);
+    localStorage.setItem("recentMessage", message.message);
+
   }
 
   groupCreated(group: Group): void {
